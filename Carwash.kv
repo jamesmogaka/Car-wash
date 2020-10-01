@@ -1,0 +1,1202 @@
+Manager:
+    Splashscreen:
+    Signin:
+    MainMenu:
+    Services:
+    Staff:
+    Members:
+    AddCar:
+    Records:
+    Financial:
+    ServiceRecords:
+    UserRecords:
+    CarRecords:
+    About:
+
+<FlatButton@ButtonBehavior+Label>:
+    font_size: 14
+
+<CButton@ButtonBehavior+Label>:
+    id:cbutton
+    size_hint_x:.05
+    canvas.before:
+        Ellipse:
+            pos: self.pos
+            size: root.size
+            source: "user.png"
+
+<SplashScreen>:
+    name : 'splash'
+    orientation: 'vertical'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: root.size
+            source: "4.jpg"
+    Label:
+        text:"CAR WASH MANAGEMENT SYSTEM"
+        font_size:40
+        font_name:'Alger.ttf'
+        color:(0,0,0,1)
+
+<Signin>:
+    name : 'signin_win'
+    BoxLayout:
+        id: signin_win
+        orientation: "vertical"
+        spacing: 10
+        space_x: self.size[0]/3
+        canvas.before:
+            Color:
+                rgba: (1,1,1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            canvas.before:
+                Color:
+                    rgba: (.2, .2, .2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text: "Log In !"
+                bold: True
+                size_hint_x: .9
+            FlatButton:
+                text: "x"
+                size_hint_x: .1
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: signin_win.space_x, 10
+            #spacing: 20
+            BoxLayout:
+                orientation: "vertical"
+                spacing: 10
+                size_hint_y: None
+                height: 100
+                Label:
+                    id: info
+                    text: ''
+                    markup: True
+                    size_hint_y: None
+                    height: 20
+                TextInput:
+                    id: username_field
+                    hint_text: "Username"
+                    multiline: False
+                    focus: True
+                    on_text_validate: pwd_field.focus = True
+                TextInput:
+                    id: pwd_field
+                    hint_text: "Password"
+                    multiline: False
+                    password: True
+                    on_text_validate: root.validate_user()
+            Label:
+                id: sp
+                size_hint_y: None
+                height: 40
+            Button:
+                text: "Sign In"
+                size_hint_y: None
+                height: 40
+                background_color: (.2,.2,.2, 1)
+                background_normal: ''
+                on_release: root.validate_user()
+            Label:
+                id: sp2
+
+<MainMenu>:
+    name:'menu'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: root.size
+            source: "11.jpg"
+    BoxLayout:
+        id : mainmenu
+        orientation: 'vertical'
+        BoxLayout:
+            id : userdetails
+            size_hint_y:None
+            height:60
+            pos_hint:{"top":1}
+            canvas.before:
+                Color:
+                    rgba: (.2,.2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text: ''
+                size_hint_x:.4
+            Label:
+                text:''
+                size_hint_x:.4
+
+            CButton
+                on_release:root.log_out()
+
+
+        BoxLayout:
+            orientation:'vertical'
+            spacing: 10
+            padding:[40,50]
+
+            Button:
+                text:'CarWash Members'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'members'
+
+            Button:
+                text:'Carwash Services'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'services'
+
+
+            Button:
+                text:'Staff'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'staff'
+
+            Button:
+                text:'CarWash Records'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'records'
+
+            BoxLayout:
+                orientation:'horizontal'
+                spacing:10
+                Button:
+                    text:'About'
+                    font_size:30
+                    font_name:'Timesbd.ttf'
+                    background_color:(0,0,0,0)
+                    canvas.before:
+                        Color:
+                            rgba: .5, .5, .5, 1
+                        Line:
+                            width: 3
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release: app.root.current = 'about'
+
+
+                Button:
+                    text:'Quit Application'
+                    font_size:30
+                    font_name:'Timesbd.ttf'
+                    background_color:(0,0,0,0)
+                    canvas.before:
+                        Color:
+                            rgba: .5, .5, .5, 1
+                        Line:
+                            width: 3
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release: app.get_running_app().stop()
+<Services>:
+    name : 'services'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: root.size
+            source: "6.jpg"
+    BoxLayout:
+        orientation:'vertical'
+        spacing:10
+        padding:[40,50]
+
+
+<AddCar>:
+    name : 'car'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: root.size
+            source: "9.jpg"
+
+    BoxLayout:
+        id: car_details
+        orientation:'vertical'
+        padding:[40,50]
+        spacing:10
+
+        BoxLayout:
+            id: header_cars
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2, .2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text: 'Add Car Form'
+                size_hint_x: .9
+                bold: True
+                color: (1,1,1,1)
+
+        GridLayout:
+            cols:2
+            spacing:25
+            Label:
+                text: 'Registration No.'
+            TextInput:
+                id:reg_no
+                multiline: False
+            Label:
+                text: 'Car Model'
+            TextInput:
+                id:model
+                multiline: False
+            Label:
+                text : 'Car Color'
+            TextInput:
+                id:car_color
+                multiline: False
+            Label:
+                text: "Owner's ID"
+            TextInput:
+                id:owner_id
+                multiline: False
+
+        BoxLayout:
+            id: car_form_btns
+            orientation: 'horizontal'
+            size_hint_y:None
+            height: 50
+            spacing:10
+
+            Button:
+                text:'Add Car'
+                on_release:root.add_car()
+
+
+            Button:
+                text:'Back'
+                on_release:app.root.current = 'menu'
+
+
+<Members>:
+    name: 'members'
+    BoxLayout:
+        id:members_screen
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: (1,1,1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text: 'Car Wash Management System'
+                size_hint_x: .9
+                bold: True
+                color: (1,1,1,1)
+        BoxLayout:
+            padding: 10
+            BoxLayout:
+                id: member_details
+                orientation: "vertical"
+                size_hint_x: .8
+                spacing: 10
+
+                BoxLayout:
+                    id: table_labels
+                    size_hint_y: None
+                    height: 40
+                    canvas.before:
+                        Color:
+                            rgba: (.2,.2,.2, 1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    FlatButton:
+                        text: 'ID'
+                        size_hint_x: .3
+                    FlatButton:
+                        text: 'First Name'
+                        size_hint_x: .4
+                    FlatButton:
+                        text: 'Last Name'
+                        size_hint_x: .3
+
+                BoxLayout:
+                    id: table_inputs
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    TextInput:
+                        id: id_inp
+                        size_hint_x: .3
+                        multiline:False
+                    TextInput:
+                        id: fname_inp
+                        size_hint_x: .4
+                        multiline: False
+                    TextInput:
+                        id: lname_inp
+                        size_hint_x: .3
+                        multiline:False
+                BoxLayout:
+                    id: member_btns
+                    orientation:'horizontal'
+                    size_hint_y:None
+                    height:40
+                    Button:
+                        id:show_records
+                        text: 'Show Members'
+                        size_hint_x: .2
+                        on_release: root.show_members()
+                    Button:
+                        id: addmember_btn
+                        text:'Add Member'
+                        on_release: root.add_member()
+
+
+                BoxLayout:
+                    id: members_list
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        canvas.before:
+                            Color:
+                                rgba: (.2, .2,.2, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        Label:
+                            text: 'ID'
+                            size_hint_x: .3
+                        Label:
+                            text: 'First Name'
+                            size_hint_x: .4
+                        Label:
+                            text: 'Last Name'
+                            size_hint_x: .3
+                    GridLayout:
+                        id: member_records
+                        cols: 1
+
+                BoxLayout:
+                    id: final_buttons
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    Button:
+                        id: add_car
+                        text:'Add Vehicle'
+                        size_hint_y: None
+                        height: 30
+                        on_release: app.root.current = 'car'
+                    Button:
+                        id: member_back
+                        text:'Back'
+                        size_hint_y: None
+                        height: 30
+                        on_release: app.root.current = 'menu'
+<MemberPopup>:
+    Label:
+        id:success_msg
+        text:'Member added successfully !'
+        size_hint:(.6,.2)
+        pos_hint:{"x":.2, "top":1}
+
+<LogoutPopup>:
+    Label:
+        id:logout_msg
+        text:'Are you sure? '
+        size_hint:(.6,.2)
+        pos_hint:{"x":.2, "top":1}
+    Button:
+        id:btn_yes
+        text:'Yes'
+        size_hint_y:None
+        size_hint_x:None
+        width: 100
+        height:40
+        pos_hint:{"x":.1, "y":.1}
+        on_release:app.root.current = 'signin_win'
+    Button:
+        id:btn_no
+        text:'No'
+        size_hint_y:None
+        size_hint_x:None
+        width:100
+        height:40
+        pos_hint:{"x":.6, "y":.1}
+        on_release:app.root.curret = 'menu'
+
+<Staff>:
+    name: 'staff'
+    BoxLayout:
+        id:staff_screen
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: (1,1,1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            id: header
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text: 'Car Wash Management System'
+                size_hint_x: .9
+                bold: True
+                color: (1,1,1,1)
+        BoxLayout:
+            padding: 10
+            BoxLayout:
+                id: staff_details
+                orientation: "vertical"
+                size_hint_x: .8
+                spacing: 10
+
+                BoxLayout:
+                    id: table_labels
+                    size_hint_y: None
+                    height: 40
+                    canvas.before:
+                        Color:
+                            rgba: (.2,.2,.2, 1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                    FlatButton:
+                        text: 'Staff ID'
+                        size_hint_x: .2
+                    FlatButton:
+                        text: 'National ID'
+                        size_hint_x: .2
+                    FlatButton:
+                        text: 'First Name'
+                        size_hint_x: .3
+                    FlatButton:
+                        text: 'Last Name'
+                        size_hint_x: .2
+
+                BoxLayout:
+                    id: table_inputs
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    TextInput:
+                        id: staffid_inp
+                        size_hint_x: .2
+                        multiline:False
+                    TextInput:
+                        id: id_inp
+                        size_hint_x: .2
+                        multiline: False
+                    TextInput:
+                        id: firstname_inp
+                        size_hint_x: .3
+                        multiline:False
+                    TextInput:
+                        id: lastname_inp
+                        size_hint_x: .2
+                        multiline:False
+
+                BoxLayout:
+                    id: staff_btns
+                    orientation:'horizontal'
+                    size_hint_y:None
+                    height:40
+                    Button:
+                        id:show_records
+                        text: 'Show Staff'
+                        size_hint_x: .2
+                        on_release:root.show_staff()
+                    Button:
+                        id: addstaff_btn
+                        text:'Add Staff'
+                        on_release:root.add_staff()
+
+
+                BoxLayout:
+                    id: staff_list
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        canvas.before:
+                            Color:
+                                rgba: (.2, .2,.2, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        Label:
+                            text: 'Staff ID'
+                            size_hint_x: .2
+                        Label:
+                            text: 'National ID'
+                            size_hint_x: .2
+                        Label:
+                            text: 'First Name'
+                            size_hint_x: .3
+                        Label:
+                            text: 'Last Name'
+                            size_hint_x: .2
+                    GridLayout:
+                        id: staff_records
+                        cols: 1
+
+                    Button:
+                        id: staff_back
+                        text:'Back'
+                        size_hint_y: None
+                        height: 30
+                        on_release: app.root.current = 'menu'
+
+<Services>:
+    name : 'services'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: root.size
+            source: "8.jpg"
+
+    BoxLayout:
+        id: service_details
+        orientation:'vertical'
+        padding:[40,50]
+        spacing:10
+
+        BoxLayout:
+            id: header_services
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2, .2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text: 'Add Service'
+                size_hint_x: .9
+                bold: True
+                color: (1,1,1,1)
+
+        GridLayout:
+            cols:2
+            spacing:25
+            Label:
+                text: 'Service ID'
+            TextInput:
+                id:service_id
+                multiline: False
+            Label:
+                text: 'service'
+            TextInput:
+                id:service
+                multiline: False
+            Label:
+                text: 'Description'
+            TextInput:
+                id:description
+                multiline: True
+            Label:
+                text: 'Cost'
+            TextInput:
+                id:cost
+                multiline: False
+            Label:
+                text : 'Staff ID'
+            TextInput:
+                id:servicestaff_id
+                multiline: False
+            Label:
+                text: "Reg No"
+            TextInput:
+                id:servicereg_no
+                multiline: False
+
+        BoxLayout:
+            id: service_form_btns
+            orientation: 'horizontal'
+            size_hint_y:None
+            height: 50
+            spacing:10
+
+            Button:
+                text:'Add Service'
+                on_release: root.add_service()
+
+
+            Button:
+                text:'Back'
+                on_release:app.root.current = 'menu'
+
+<Records>:
+    name : 'records'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source:'7.jpg'
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System Records'
+                bold :True
+        Label:
+            size_hint_y:None
+            height:50
+
+        GridLayout:
+            cols : 2
+            size_hint_y:None
+            height:100
+            spacing:10
+
+            Button:
+                text:'Financial Records'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'financial'
+
+            Button:
+                text:'Service Records'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'servicerecords'
+
+            Button:
+                text:'Car Records'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'carrecords'
+
+            Button:
+                text:'Users Records'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'userrecords'
+        Label:
+            size_hint_y:None
+            height:50
+        GridLayout:
+            cols: 3
+            size_hint_y:None
+            height:50
+
+            Label:
+
+            Button:
+                text:'Back'
+                font_size:30
+                font_name:'Timesbd.ttf'
+                background_color:(0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: .5, .5, .5, 1
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release: app.root.current = 'menu'
+
+            Label:
+
+        Label:
+
+<Financial>:
+    name : 'financial'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System Records'
+                bold :True
+
+        BoxLayout:
+            id: financial_list
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2,.2, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: 'Service ID'
+                    size_hint_x: .2
+                Label:
+                    text: 'Service'
+                    size_hint_x: .2
+                Label:
+                    text: 'cost(ksh)'
+                    size_hint_x: .2
+                Label:
+                    text: 'Staff ID'
+                    size_hint_x: .2
+                Label:
+                    text: 'Owner ID'
+                    size_hint_x: .2
+
+            GridLayout:
+                id: financial_records
+                cols: 1
+
+        BoxLayout:
+            id: final_buttons
+            size_hint_y: None
+            height: 30
+            spacing: 5
+            Button:
+                id: financial_back
+                text:'Back'
+                size_hint_y: None
+                height: 30
+                on_release: app.root.current = 'records'
+
+<ServiceRecords>:
+    name : 'servicerecords'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System Records'
+                bold :True
+
+        BoxLayout:
+            id: service_list
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2,.2, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: 'Service ID'
+                    size_hint_x: .2
+                Label:
+                    text: 'Service'
+                    size_hint_x: .2
+                Label:
+                    text: 'cost(ksh)'
+                    size_hint_x: .2
+                Label:
+                    text: 'Staff ID'
+                    size_hint_x: .2
+                Label:
+                    text: 'Reg No'
+                    size_hint_x: .2
+
+            GridLayout:
+                id: service_records
+                cols: 1
+
+        BoxLayout:
+            id: final_buttons
+            size_hint_y: None
+            height: 30
+            spacing: 5
+            Button:
+                id: service_back
+                text:'Back'
+                size_hint_y: None
+                height: 30
+                on_release: app.root.current = 'records'
+
+<CarRecords>:
+    name : 'carrecords'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System Records'
+                bold :True
+
+        BoxLayout:
+            id: cars_list
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2,.2, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: 'Reg No'
+                    size_hint_x: .3
+                Label:
+                    text: 'Model'
+                    size_hint_x: .3
+                Label:
+                    text: 'Colour'
+                    size_hint_x: .3
+                Label:
+                    text: 'Owner ID'
+                    size_hint_x: .2
+
+            GridLayout:
+                id: cars_records
+                cols: 1
+
+        BoxLayout:
+            id: final_buttons
+            size_hint_y: None
+            height: 30
+            spacing: 5
+            Button:
+                id: member_back
+                text:'Back'
+                size_hint_y: None
+                height: 30
+                on_release: app.root.current = 'records'
+
+<UserRecords>:
+    name : 'userrecords'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System Records'
+                bold :True
+
+        BoxLayout:
+            id: users_list
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2,.2, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: 'Staff ID'
+                    size_hint_x: .1
+                Label:
+                    text: 'First Name'
+                    size_hint_x: .2
+                Label:
+                    text: 'Last Name'
+                    size_hint_x: .2
+                Label:
+                    text: 'Password'
+                    size_hint_x: .2
+                Label:
+                    text: 'Username'
+                    size_hint_x: .2
+                Label:
+                    text: 'Designation'
+                    size_hint_x: .1
+
+            GridLayout:
+                id: users_records
+                cols: 1
+            BoxLayout:
+                orientation:'vertical'
+                pos_hint:{'bottom':1}
+                spacing:10
+
+                BoxLayout:
+                    id: user_details
+                    orientation: "vertical"
+                    spacing: 10
+
+                    BoxLayout:
+                        id: table_labels
+                        size_hint_y: None
+                        height: 40
+                        canvas.before:
+                            Color:
+                                rgba: (.2,.2,.2, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+
+                        FlatButton:
+                            text: 'Staff ID'
+                            size_hint_x: .1
+                        FlatButton:
+                            text: 'First Name'
+                            size_hint_x: .2
+                        FlatButton:
+                            text: 'Last Name'
+                            size_hint_x: .2
+                        FlatButton:
+                            text: 'Password'
+                            size_hint_x: .2
+                        FlatButton:
+                            text: 'Username'
+                            size_hint_x: .2
+                        FlatButton:
+                            text: 'Designation'
+                            size_hint_x: .1
+
+                    BoxLayout:
+                        id: table_inputs
+                        size_hint_y: None
+                        height: 30
+                        spacing: 5
+                        TextInput:
+                            id: staffid_input
+                            size_hint_x: .1
+                            multiline:False
+                        TextInput:
+                            id: fname_input
+                            size_hint_x: .2
+                            multiline: False
+                        TextInput:
+                            id: lname_input
+                            size_hint_x: .3
+                            multiline:False
+                        TextInput:
+                            id: password_input
+                            size_hint_x: .2
+                            multiline:False
+                        TextInput:
+                            id: username_input
+                            size_hint_x: .2
+                            multiline:False
+                        TextInput:
+                            id: designation_input
+                            size_hint_x: .1
+                            multiline:False
+
+                BoxLayout:
+                    id: final_buttons
+                    size_hint_y: None
+                    height: 30
+                    spacing: 5
+                    Button:
+                        id:adduser
+                        text:'Add User'
+                        size_hint_x:.9
+                        on_release:root.adduser()
+
+                    Button:
+                        id: users_back
+                        text:'Back'
+                        on_release: app.root.current = 'records'
+
+
+<About>:
+    name : 'about'
+    BoxLayout:
+        orientation:'vertical'
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source:'4.jpg'
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (.2, .2,.2, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                text:'CarWash Management System'
+                bold :True
+
+        Label:
+            size_hint_y:None
+            height:50
+        GridLayout:
+            cols:3
+            size_hint_y:None
+            height:50
+
+            Label:
+
+            Button:
+                text:'Documentation'
+
+
+            Label:
+
+        Label:
+            size_hint_y:None
+            height:50
+
+        BoxLayout:
+            size_hint_y:None
+            height:50
+
+            Label:
+                size_hint_x:.9
+            Button:
+                text:'Back'
+                on_release:app.root.current = 'menu'
+
+        Label:
